@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Редактирование книги {{ book.name }}{% endblock %}
+
+{% block content %}
+    <h1>Редактирование книги {{ book.name }}</h1>
+
+    <div class="row">
+        <div class="col-12">
+
+            {{ form_start(form) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.year) }}
+                {{ form_row(form.description) }}    
+
+                <div class="mb-3">
+                    {{ form_label(form.main_image) }}                    
+                    <div class="mb-3">
+                        <img src="{{ book.mainImage }}" height="auto" width="150"/>  
+                    </div>
+                    {{ form_widget(form.main_image) }}
+                    {{ form_errors(form.main_image) }}
+                </div>
+                                         
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+{% endblock %}

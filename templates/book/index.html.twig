@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Каталог книг{% endblock %}
+
+{% block content %}
+    <h1>Каталог книг</h1>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="mb-3">
+                <a class="btn-success btn" href="{{ path('book_create') }}">Добавить</a>
+            </div>
+
+            {% if books %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 160px"></th>
+                            <th scope="col">Название</th>
+                            <th scope="col">Год выпуска</th>    
+                            <th scope="col">Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for book in books %}                
+                            <tr>
+                                <th scope="row"><img src="{{ book.mainImage }}" height="auto" width="150"/></th>
+                                <td>{{ book.name }}</td>
+                                <td>{{ book.year }} г.</td>
+                                <td>
+                                    <div class="mt-2 d-flex">
+                                        <a href="{{ path('book_show', {'id': book.id}) }}" class="btn btn-primary btn-sm me-2">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                        <a href="{{ path('book_edit', {'id': book.id}) }}" class="btn btn-info btn-sm me-2">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+
+                                        <form action="{{ path('book_delete', {'id': book.id}) }}" method="post" accept-charset="UTF-8">
+                                            <input type="hidden" name="token" value="{{ csrf_token('book_delete') }}">
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Вы уверены?')" >
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>  
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                Книг не найдено
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
