@@ -10,13 +10,16 @@
             <img class="book-image" src="{{ book.mainImage }}"/>
         </div>
         <div class="col-6">
-            <div class="mt-2">
-                <a href="{{ path('book_edit', {'id': book.id}) }}" class="btn btn-info btn-sm">
+            <div class="mt-2 d-flex">
+                <a href="{{ path('book_edit', {'id': book.id}) }}" class="btn btn-info btn-sm me-2">
                     <i class="fa fa-edit"></i>
                 </a>
-                <a href="" class="btn btn-danger btn-sm" onclick="return confirm('Вы уверены?')" >
-                    <i class="fa fa-trash"></i>
-                </a>
+                 <form action="{{ path('book_delete', {'id': book.id}) }}" method="post" accept-charset="UTF-8">
+                    <input type="hidden" name="token" value="{{ csrf_token('book_delete') }}">
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Вы уверены?')" >
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </form>
             </div>
             <table class="table">
                 <tbody>            
